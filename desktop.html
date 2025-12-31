@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Submerso | Transporte de Água Potável</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #020617
+        }
+
+        /* FADE */
+        .fade {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: .9s cubic-bezier(.2, .8, .2, 1)
+        }
+
+        .fade.show {
+            opacity: 1;
+            transform: none
+        }
+
+        /* GOTAS */
+        .drop {
+            position: absolute;
+            width: 4px;
+            height: 12px;
+            background: linear-gradient(to bottom, #38bdf8, transparent);
+            opacity: .25;
+            animation: drop 6s linear infinite
+        }
+
+        @keyframes drop {
+            from {
+                transform: translateY(-20vh)
+            }
+
+            to {
+                transform: translateY(120vh)
+            }
+        }
+
+        /* HEADER */
+        .header-glass {
+            background: rgba(11, 60, 93, .25);
+            backdrop-filter: blur(6px);
+            transition: .4s
+        }
+
+        .header-solid {
+            background: linear-gradient(to bottom, #0b3c5d, #07293f);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .35)
+        }
+
+        /* NAV ÁGUA */
+        .nav-water {
+            position: relative;
+            overflow: hidden
+        }
+
+        .nav-water::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, .25), transparent 60%);
+            opacity: 0;
+            transform: scale(.4);
+            transition: .4s
+        }
+
+        .nav-water:hover::after {
+            opacity: 1;
+            transform: scale(1)
+        }
+
+        .nav-active {
+            color: #fff !important
+        }
+
+        .nav-active span:last-child {
+            width: 100% !important
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            scrollbar-width: none;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding-top: 5rem !important;
+                padding-bottom: 5rem !important;
+            }
+
+            .px-8 {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-gray-300 overflow-x-hidden">
+
+    <!-- ================= HEADER ================= -->
+    <header id="submersoHeader"
+        class="fixed top-0 w-full z-50 header-glass border-b border-white/10 transition-all duration-300">
+
+        <div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
+
+            <!-- LOGO / MARCA -->
+            <div class="flex items-center gap-5">
+                <img src="assets/logo para o header.png"
+                    class="h-16 drop-shadow-[0_0_30px_rgba(56,189,248,0.35)] transition-transform duration-300 hover:scale-105"
+                    alt="Submerso Transporte de Água Potável">
+
+                <div class="leading-tight">
+                    <p class="text-white font-semibold text-lg tracking-wide">
+                        SUBMERSO
+                    </p>
+                    <p class="text-[11px] text-blue-300 tracking-[0.35em] uppercase">
+                        Transporte de Água Potável
+                    </p>
+                </div>
+            </div>
+
+            <!-- NAVEGAÇÃO -->
+            <nav class="hidden md:flex items-center gap-14">
+
+                <a href="#inicio" data-section="inicio"
+                    class="nav-link group relative text-blue-100 hover:text-white transition">
+                    <span class="text-xs tracking-widest uppercase">Início</span>
+                    <span
+                        class="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+                <a href="#sobre" data-section="sobre"
+                    class="nav-link group relative text-blue-100 hover:text-white transition">
+                    <span class="text-xs tracking-widest uppercase">Sobre</span>
+                    <span
+                        class="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+                <a href="#entregas" data-section="diferenciais"
+                    class="nav-link group relative text-blue-100 hover:text-white transition">
+                    <span class="text-xs tracking-widest uppercase">Serviços</span>
+                    <span
+                        class="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+                <a href="#contato" data-section="contato"
+                    class="nav-link group relative text-blue-100 hover:text-white transition">
+                    <span class="text-xs tracking-widest uppercase">Contato</span>
+                    <span
+                        class="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+            </nav>
+
+            <!-- CTA -->
+            <a href="https://wa.me/5511947741748" class="hidden md:inline-flex items-center gap-2 bg-green-500 text-black px-7 py-3 rounded-full
+                   text-sm font-medium hover:bg-green-400 transition shadow-lg">
+                WhatsApp
+            </a>
+
+        </div>
+    </header>
+
+    <!-- Espaço do header fixo -->
+    <div class="h-24"></div>
+
+
+    <!-- GOTAS -->
+    <div class="fixed inset-0 -z-10 pointer-events-none">
+        <div class="drop left-[10%]"></div>
+        <div class="drop left-[30%]"></div>
+        <div class="drop left-[50%]"></div>
+        <div class="drop left-[70%]"></div>
+    </div>
+
+
+    <!-- ================= HERO HOME ================= -->
+    <section id="inicio" class="relative min-h-screen flex items-center overflow-hidden fade">
+
+        <!-- FUNDO GRADIENTE -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0b3c5d]/40 via-[#020617] to-[#020617]"></div>
+
+        <!-- GOTAS DE ÁGUA (LEVE) -->
+        <div class="absolute inset-0 pointer-events-none">
+            <span class="absolute left-[10%] top-[-10%] w-1 h-6 bg-blue-400/30 rounded-full animate-water"></span>
+            <span
+                class="absolute left-[35%] top-[-15%] w-1 h-8 bg-blue-300/20 rounded-full animate-water delay-2"></span>
+            <span
+                class="absolute left-[60%] top-[-20%] w-1 h-5 bg-blue-500/20 rounded-full animate-water delay-4"></span>
+            <span
+                class="absolute left-[80%] top-[-12%] w-1 h-7 bg-blue-400/25 rounded-full animate-water delay-6"></span>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-20 items-center">
+
+            <!-- TEXTO -->
+            <div>
+                <p class="uppercase tracking-[0.45em] text-blue-400 text-xs mb-6">
+                    Transporte de Água Potável
+                </p>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl text-white font-light mb-8 leading-tight">
+                    SUBMERSO
+                </h1>
+
+                <h2 class="text-xl md:text-2xl text-gray-200 font-light mb-8 leading-relaxed">
+                    Há mais de <span class="text-blue-400 font-medium">20 anos</span>
+                    garantindo abastecimento seguro de água potável
+                    em <strong>São Paulo</strong>.
+                </h2>
+
+                <p class="text-gray-300 leading-relaxed mb-12 max-w-xl">
+                    Atendemos <strong>residências, empresas e indústrias</strong> com
+                    frota própria, operação monitorada e rigoroso controle sanitário.
+                    Cada entrega é planejada para oferecer
+                    <strong>qualidade, pontualidade e total confiabilidade</strong>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="https://wa.me/5511947741748" class="inline-flex justify-center items-center
+                  bg-green-500 text-black px-10 py-4 rounded-full
+                  font-medium hover:bg-green-400 transition shadow-lg">
+                        ORÇAMENTO IMEDIATO
+                    </a>
+
+                    <a href="#sobre" class="inline-flex justify-center items-center
+                  border border-blue-400/40 text-blue-300
+                  px-10 py-4 rounded-full
+                  hover:border-blue-400 hover:text-white transition">
+                        CONHEÇA A SUBMERSO
+                    </a>
+                </div>
+            </div>
+
+            <!-- IMAGEM DO CAMINHÃO -->
+            <div class="relative flex justify-center">
+                <!-- GLOW -->
+                <div class="absolute inset-0 flex justify-center items-center">
+                    <div class="w-[420px] h-[420px] bg-blue-500/20 rounded-full blur-3xl"></div>
+                </div>
+
+                <img src="assets/logo-base.png" alt="Caminhão Pipa Submerso" class="relative z-10 w-[520px] max-w-full
+                  drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]
+                  hover:scale-[1.03] transition duration-700 ease-out">
+            </div>
+
+        </div>
+    </section>
+
+
+    <section id="sobre" class="py-36 border-t border-white/5 fade">
+        <div class="max-w-7xl mx-auto px-8 space-y-32">
+
+            <!-- BLOCO PRINCIPAL -->
+            <div class="grid md:grid-cols-2 gap-24 items-center">
+
+                <!-- TEXTO -->
+                <div>
+                    <h2 class="text-4xl md:text-5xl text-white font-light mb-10 leading-tight">
+                        Sobre a <span class="text-blue-400">Submerso</span>
+                    </h2>
+
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Fundada na Zona Leste de São Paulo, a <strong>Submerso Transporte de Água Potável</strong>
+                        atua há mais de duas décadas oferecendo soluções seguras, eficientes e
+                        responsáveis para o abastecimento de água.
+                    </p>
+
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Com frota própria, motoristas treinados e processos rigorosamente
+                        monitorados, garantimos <strong>controle total da operação</strong>,
+                        desde a captação até a entrega final.
+                    </p>
+
+                    <p class="text-gray-300 leading-relaxed">
+                        Atendemos residências, comércios e indústrias com foco em
+                        <strong>continuidade, segurança sanitária e confiabilidade absoluta</strong>.
+                    </p>
+                </div>
+
+                <!-- IMAGEM -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-blue-500/10 rounded-2xl blur-2xl
+                    group-hover:blur-3xl transition"></div>
+
+                    <img src="assets/caminhao-hero.png" alt="Caminhão-pipa Submerso" class="relative rounded-2xl shadow-2xl
+                    group-hover:scale-[1.02] transition duration-700">
+                </div>
+
+            </div>
+
+            <!-- PILARES COM ANIMAÇÃO -->
+            <div class="grid md:grid-cols-3 gap-12">
+
+                <div class="border border-blue-500/30 rounded-xl p-8
+                  backdrop-blur-sm hover:border-blue-400
+                  transition transform hover:-translate-y-2">
+                    <h4 class="text-white mb-3 tracking-wide">
+                        <svg width="35" height="35" viewBox="0 0 42 42" fill="none" stroke="#38bdf8" stroke-width="1.4"
+                            stroke-linecap="round" stroke-linejoin="round" class="mb-6">
+
+                            <!-- Nó central -->
+                            <circle cx="21" cy="21" r="4" />
+
+                            <!-- Nós externos -->
+                            <circle cx="8" cy="10" r="2.5" />
+                            <circle cx="34" cy="10" r="2.5" />
+                            <circle cx="8" cy="32" r="2.5" />
+                            <circle cx="34" cy="32" r="2.5" />
+
+                            <!-- Conexões -->
+                            <path d="M10 11l9 8M32 11l-9 8M10 31l9-8M32 31l-9-8" />
+                        </svg>
+                        <div class="grid md:grid-cols-3 gap-12">
+
+                            Agendamento Rápido
+                    </h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Logística flexível para atender demandas programadas
+                        ou emergenciais com agilidade e precisão.
+                    </p>
+                </div>
+
+                <div class="border border-blue-500/30 rounded-xl p-8
+                  backdrop-blur-sm hover:border-blue-400
+                  transition transform hover:-translate-y-2">
+                    <h4 class="text-white mb-3 tracking-wide">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="#38bdf8" stroke-width="1.4"
+                            stroke-linecap="round" stroke-linejoin="round" class="mb-6">
+
+                            <!-- Base -->
+                            <path d="M6 30h30" />
+
+                            <!-- Barras de crescimento -->
+                            <path d="M12 30V22" />
+                            <path d="M20 30V16" />
+                            <path d="M28 30V10" />
+
+                            <!-- Seta de evolução -->
+                            <path d="M24 12l4-4 4 4" />
+                        </svg>
+
+                        Monitoramento Constante
+                    </h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Controle operacional contínuo, garantindo rastreabilidade,
+                        segurança e eficiência em cada entrega.
+                    </p>
+                </div>
+
+                <div class="border border-blue-500/30 rounded-xl p-8
+                  backdrop-blur-sm hover:border-blue-400
+                  transition transform hover:-translate-y-2">
+                    <h4 class="text-white mb-3 tracking-wide">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="#38bdf8" stroke-width="1.4"
+                            stroke-linecap="round" stroke-linejoin="round" class="mb-6">
+
+                            <!-- Círculo de ciclo -->
+                            <path d="M10 22a11 11 0 1 0 3-7" />
+
+                            <!-- Setas de continuidade -->
+                            <path d="M14 11l-3 4 5 1" />
+
+
+                        </svg>
+
+
+
+                        Melhoria Contínua
+                    </h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Investimento permanente em processos, pessoas
+                        e tecnologia para elevar nosso padrão de qualidade.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- MISSÃO / VISÃO / VALORES -->
+
+    </section>
+
+
+
+    <section class="py-40 border-t border-white/5">
+        <div class="max-w-5xl mx-auto px-8 relative">
+
+            <!-- Linha vertical (fluxo da água) -->
+            <div
+                class="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-blue-400/40 via-blue-400/10 to-transparent">
+            </div>
+
+            <div class="space-y-24 pl-16">
+
+                <!-- MISSÃO -->
+                <div>
+                    <h3 class="text-3xl text-white font-light mb-6">
+                        Missão
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed max-w-3xl">
+                        Garantir o abastecimento de água potável com segurança sanitária absoluta,
+                        agilidade logística e controle operacional rigoroso, atendendo cada cliente
+                        com precisão, transparência e excelência.
+                    </p>
+                </div>
+
+                <!-- VISÃO -->
+                <div>
+                    <h3 class="text-3xl text-white font-light mb-6">
+                        Visão
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed max-w-3xl">
+                        Ser referência em transporte de água potável em São Paulo, reconhecida pela
+                        confiabilidade, eficiência e padrão técnico-operacional elevado.
+                    </p>
+                </div>
+
+                <!-- VALORES -->
+                <div>
+                    <h3 class="text-3xl text-white font-light mb-10">
+                        Princípios
+                    </h3>
+
+                    <div class="space-y-6 text-gray-300 max-w-3xl">
+                        <p><strong class="text-white">Responsabilidade Sanitária</strong> — Cumprimento rigoroso de
+                            normas, laudos e controles de qualidade.</p>
+                        <p><strong class="text-white">Ética e Transparência</strong> — Relações claras, processos
+                            auditáveis e compromisso com a verdade.</p>
+                        <p><strong class="text-white">Compromisso com o Cliente</strong> — Atendimento humano, ágil e
+                            focado em solução.</p>
+                        <p><strong class="text-white">Segurança Operacional</strong> — Frota própria, equipe treinada e
+                            controle total da operação.</p>
+                        <p><strong class="text-white">Evolução Constante</strong> — Investimento contínuo em pessoas,
+                            tecnologia e processos.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section>
+    <section id="entregas" class="py-40 border-t border-white/5 overflow-hidden">
+
+        <!-- TÍTULO + CONTADOR -->
+        <div class="max-w-7xl mx-auto px-8 mb-20 flex flex-col md:flex-row
+              items-start md:items-end justify-between gap-10">
+
+            <div>
+                <h2 class="text-4xl text-white font-light mb-6">
+                    Entregas Realizadas
+                </h2>
+                <p class="text-gray-400 max-w-3xl leading-relaxed">
+                    Operações reais, frota própria e logística planejada para garantir
+                    abastecimento contínuo de água potável com segurança e eficiência.
+                </p>
+            </div>
+
+            <!-- CONTADOR -->
+            <div class="text-right">
+                <p class="text-6xl text-white font-light leading-none">
+                    +20.000
+                </p>
+                <p class="text-blue-400 tracking-widest text-sm mt-2">
+                    ENTREGAS REALIZADAS
+                </p>
+            </div>
+
+        </div>
+
+        <!-- CARROSSEL -->
+        <div class="relative">
+
+            <div id="carousel" class="flex gap-10 px-8 overflow-x-auto scroll-smooth
+              cursor-grab select-none no-scrollbar">
+
+                <!-- ITEM -->
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[35%] relative shrink-0">
+                    <img src="assets/imagens_carrosel1.png" class="h-[420px] w-full object-cover rounded-2xl">
+                    <div class="absolute bottom-0 left-0 right-0
+                  bg-gradient-to-t from-black/70 to-transparent
+                  p-6 rounded-b-2xl">
+                        <p class="text-sm text-gray-200">
+                            Abastecimento residencial — São Paulo
+                        </p>
+                    </div>
+                </div>
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[35%] relative shrink-0">
+                    <img src="assets/imagens_carrosel2.jpg" class="h-[420px] w-full object-cover rounded-2xl">
+                    <div class="absolute bottom-0 left-0 right-0
+                  bg-gradient-to-t from-black/70 to-transparent
+                  p-6 rounded-b-2xl">
+                        <p class="text-sm text-gray-200">
+                            Abastecimento residencial — São Paulo
+                        </p>
+                    </div>
+                </div>
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[35%] relative shrink-0">
+                    <img src="assets/imagens_carrosel4.jpeg" class="h-[420px] w-full object-cover rounded-2xl">
+                    <div class="absolute bottom-0 left-0 right-0
+                  bg-gradient-to-t from-black/70 to-transparent
+                  p-6 rounded-b-2xl">
+                        <p class="text-sm text-gray-200">
+                            Abastecimento residencial — São Paulo
+                        </p>
+                    </div>
+                </div>
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[35%] relative shrink-0">
+                    <img src="assets/imagens-carrosel3.jpeg" class="h-[420px] w-full object-cover rounded-2xl">
+                    <div class="absolute bottom-0 left-0 right-0
+                  bg-gradient-to-t from-black/70 to-transparent
+                  p-6 rounded-b-2xl">
+                        <p class="text-sm text-gray-200">
+                            Abastecimento residencial — São Paulo
+                        </p>
+                    </div>
+                </div>
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[35%] relative shrink-0">
+                    <img src="assets/imagens_carrosel5.jfif" class="h-[420px] w-full object-cover rounded-2xl">
+                    <div class="absolute bottom-0 left-0 right-0
+                  bg-gradient-to-t from-black/70 to-transparent
+                  p-6 rounded-b-2xl">
+                        <p class="text-sm text-gray-200">
+                            Frota Submerso — São Paulo
+                        </p>
+                    </div>
+                </div>
+
+
+                <button onclick="slide(-1)" class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur
+             border border-white/20 w-12 h-12 rounded-full text-white
+             hover:bg-blue-500/30 transition">
+                    ‹
+                </button>
+
+                <button onclick="slide(1)" class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur
+             border border-white/20 w-12 h-12 rounded-full text-white
+             hover:bg-blue-500/30 transition">
+                    ›
+                </button>
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+    <!-- ================= CERTIFICAÇÕES ================= -->
+    <section class="py-32 border-t border-white/5 fade" id="certificacoes">
+        <div class="max-w-7xl mx-auto px-8">
+
+            <!-- TÍTULO -->
+            <div class="max-w-3xl mb-20">
+                <h2 class="text-4xl md:text-5xl text-white font-light mb-6">
+                    Certificações &<br>
+                    <span class="text-blue-400">Controle Sanitário</span>
+                </h2>
+
+                <p class="text-gray-400 leading-relaxed">
+                    A Submerso opera em conformidade com as normas sanitárias e técnicas exigidas
+                    para o transporte de água potável, garantindo segurança, rastreabilidade e
+                    qualidade em cada entrega.
+                </p>
+            </div>
+
+            <!-- GRID CERTIFICAÇÕES -->
+            <div class="grid md:grid-cols-3 gap-16">
+
+                <!-- CERT 1 -->
+                <div class="relative group">
+                    <div
+                        class="absolute inset-0 bg-blue-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition">
+                    </div>
+
+                    <div class="relative border border-blue-500/30 rounded-2xl p-8 backdrop-blur">
+                        <!-- ÍCONE -->
+                        <svg class="w-10 h-10 mb-6" fill="none" stroke="#38bdf8" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path d="M12 3l7 4v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V7z" />
+                            <path d="M9 12l2 2 4-4" />
+                        </svg>
+
+                        <h3 class="text-white text-lg mb-3">
+                            Vigilância Sanitária
+                        </h3>
+
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Operação regularizada junto à Vigilância Sanitária, atendendo rigorosamente
+                            às exigências legais para transporte de água potável.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CERT 2 -->
+                <div class="relative group">
+                    <div
+                        class="absolute inset-0 bg-blue-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition">
+                    </div>
+
+                    <div class="relative border border-blue-500/30 rounded-2xl p-8 backdrop-blur">
+                        <!-- ÍCONE -->
+                        <svg class="w-10 h-10 mb-6" fill="none" stroke="#38bdf8" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path d="M9 3h6v4H9z" />
+                            <path d="M7 7h10v14H7z" />
+                            <path d="M9 11h6M9 15h6" />
+                        </svg>
+
+                        <h3 class="text-white text-lg mb-3">
+                            Laudos Técnicos
+                        </h3>
+
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Água analisada periodicamente com laudos técnicos que comprovam
+                            potabilidade, pureza e conformidade com os padrões sanitários.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CERT 3 -->
+                <div class="relative group">
+                    <div
+                        class="absolute inset-0 bg-blue-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition">
+                    </div>
+
+                    <div class="relative border border-blue-500/30 rounded-2xl p-8 backdrop-blur">
+                        <!-- ÍCONE -->
+                        <svg class="w-10 h-10 mb-6" fill="none" stroke="#38bdf8" stroke-width="1.5" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 3" />
+                        </svg>
+
+                        <h3 class="text-white text-lg mb-3">
+                            Controle Operacional
+                        </h3>
+
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Monitoramento contínuo da frota, processos auditáveis e
+                            rastreabilidade completa das mais diversas entregas realizadas no nosso dia a dia.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TEXTO DE AUTORIDADE -->
+            <div class="mt-24 max-w-4xl border-l border-blue-400/40 pl-8">
+                <p class="text-gray-300 leading-relaxed">
+                    Mais do que cumprir normas, a Submerso adota uma cultura de
+                    <strong class="text-white font-medium">responsabilidade sanitária</strong>,
+                    investindo continuamente em processos, capacitação e tecnologia
+                    para garantir um serviço seguro, confiável e tecnicamente validado.
+                </p>
+            </div>
+
+        </div>
+    </section>
+    <!-- ================= MAPA DE ATUAÇÃO ================= -->
+    <section class="py-32 border-t border-white/5 fade" id="atuacao">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-20 items-center">
+
+            <!-- TEXTO -->
+            <div>
+                <h2 class="text-4xl md:text-5xl text-white font-light mb-8">
+                    Área de<br>
+                    <span class="text-blue-400">Atuação</span>
+                </h2>
+
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    A Submerso atua com logística estruturada para atender
+                    <strong class="text-white font-medium">São Paulo Capital</strong>
+                    e regiões estratégicas do entorno, garantindo rapidez,
+                    flexibilidade e abastecimento contínuo.
+                </p>
+
+                <p class="text-gray-400 leading-relaxed mb-10">
+                    Nossa frota própria permite atendimento tanto
+                    <strong class="text-white">programado</strong> quanto
+                    <strong class="text-white">emergencial</strong>,
+                    com controle total da operação e conformidade sanitária.
+                </p>
+
+                <!-- LISTA -->
+                <ul class="space-y-4 text-sm">
+                    <li class="flex items-start gap-3">
+                        <span class="w-2 h-2 mt-2 rounded-full bg-blue-400"></span>
+                        São Paulo – Capital (todas as zonas)
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2 h-2 mt-2 rounded-full bg-blue-400"></span>
+                        Região Metropolitana
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2 h-2 mt-2 rounded-full bg-blue-400"></span>
+                        Atendimento emergencial 24h
+                    </li>
+                </ul>
+            </div>
+
+            <!-- MAPA -->
+            <div class="relative rounded-2xl overflow-hidden border border-blue-500/30">
+
+                <!-- OVERLAY -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-[#020617]/60 to-transparent z-10 pointer-events-none">
+                </div>
+
+                <iframe src="https://www.google.com/maps?q=São%20Paulo%20Capital&output=embed"
+                    class="w-full h-[420px] grayscale contrast-125" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <!-- BADGE -->
+                <div class="absolute bottom-6 left-6 z-20 bg-black/70 backdrop-blur
+                        border border-blue-400/40 px-5 py-3 rounded-xl">
+                    <p class="text-xs text-blue-300 tracking-widest uppercase">
+                        Operação Ativa
+                    </p>
+                    <p class="text-white text-sm">
+                        São Paulo • 24h
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- ================= CONTATO ================= -->
+    <section id="contato" class="py-36 border-t border-white/5 fade">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-24 items-center">
+
+            <!-- TEXTO / INFORMAÇÕES -->
+            <div>
+                <h2 class="text-4xl md:text-5xl text-white font-light mb-8">
+                    Atendimento<br>
+                    <span class="text-blue-400">Imediato</span>
+                </h2>
+
+                <p class="text-gray-400 leading-relaxed mb-10 max-w-xl">
+                    Precisa de abastecimento de água potável com urgência ou deseja
+                    programar uma entrega? Nossa equipe está pronta para atender
+                    residências, empresas e indústrias com total segurança sanitária.
+                </p>
+
+                <!-- INFO LIST -->
+                <div class="space-y-6 text-sm">
+
+                    <div class="flex items-start gap-4">
+                        <svg width="22" height="22" fill="none" stroke="#38bdf8" stroke-width="1.5">
+                            <path d="M3 5h18v14H3z" />
+                            <path d="M3 7l9 6 9-6" />
+                        </svg>
+                        <div>
+                            <p class="text-white">E-mail</p>
+                            <p class="text-gray-400">submerso.agua@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <svg width="22" height="22" fill="none" stroke="#38bdf8" stroke-width="1.5">
+                            <path
+                                d="M22 16.9v2a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5 2h2a2 2 0 0 1 2 1.7l.4 2.3a2 2 0 0 1-.5 1.8l-1 1a16 16 0 0 0 6 6l1-1a2 2 0 0 1 1.8-.5l2.3.4a2 2 0 0 1 1.7 2z" />
+                        </svg>
+                        <div>
+                            <p class="text-white">Telefone / WhatsApp</p>
+                            <p class="text-gray-400">(11) 94774-1748</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <svg width="22" height="22" fill="none" stroke="#38bdf8" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v6l4 2" />
+                        </svg>
+                        <div>
+                            <p class="text-white">Funcionamento</p>
+                            <p class="text-gray-400">24 horas • Todos os dias</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <a href="https://wa.me/5511947741748" class="inline-flex items-center gap-3 mt-12 bg-green-500 text-black
+                       px-10 py-4 rounded-full font-medium
+                       hover:bg-green-400 transition shadow-lg">
+                    Atendimento via WhatsApp
+                </a>
+            </div>
+
+            <!-- FORMULÁRIO -->
+            <div class="relative bg-[#020617]/60 backdrop-blur
+            border border-blue-500/30 rounded-2xl p-10">
+
+                <h3 class="text-2xl text-white font-light mb-6">
+                    Solicitar Contato
+                </h3>
+
+                <form id="mc-form" class="space-y-4"
+                    action="https://gmail.us10.list-manage.com/subscribe/post?u=37c4cb75d4794086681e0aaf1&amp;id=738d32720c&amp;f_id=009b54e4f0"
+                    method="post" target="hidden_iframe" novalidate>
+
+                    <!-- FEEDBACK -->
+                    <div id="form-success" class="hidden bg-green-500/10 border border-green-500/30
+               text-green-400 px-4 py-3 rounded-lg text-sm text-center">
+                        ✔ Mensagem enviada com sucesso! Entraremos em contato.
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-blue-200 mb-1">Nome</label>
+                        <input type="text" name="NOME" required class="w-full bg-black/40 border border-white/10
+                   rounded-lg px-4 py-3 text-sm text-white
+                   focus:outline-none focus:border-blue-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-blue-200 mb-1">E-mail</label>
+                        <input type="email" name="EMAIL" required class="w-full bg-black/40 border border-white/10
+                   rounded-lg px-4 py-3 text-sm text-white
+                   focus:outline-none focus:border-blue-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-blue-200 mb-1">Telefone</label>
+                        <input type="tel" name="TELEFONE" required class="w-full bg-black/40 border border-white/10
+                   rounded-lg px-4 py-3 text-sm text-white
+                   focus:outline-none focus:border-blue-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-blue-200 mb-1">Mensagem</label>
+                        <textarea name="MENSAGEM" rows="4" required class="w-full bg-black/40 border border-white/10
+                   rounded-lg px-4 py-3 text-sm text-white resize-none
+                   focus:outline-none focus:border-blue-400"></textarea>
+                    </div>
+
+                    <!-- ANTIBOT MAILCHIMP -->
+                    <div style="position:absolute;width:1px;height:1px;overflow:hidden;">
+                        <input type="text" name="b_37c4cb75d4794086681e0aaf1_738d32720c" tabindex="-1">
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-500 text-black py-3 rounded-lg
+               font-medium hover:bg-blue-400 transition">
+                        Enviar
+                    </button>
+                </form>
+
+                <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+
+            </div>
+
+
+        </div>
+    </section>
+
+
+    <footer class="py-8 text-center text-gray-500 border-t border-white/5">
+        © 2025 Submerso • Todos os direitos reservados
+    </footer>
+
+    <!-- ================= JS ================= -->
+    <script>
+        const header = document.getElementById("submersoHeader");
+        window.addEventListener("scroll", () => { header.classList.toggle("header-solid", window.scrollY > 60); header.classList.toggle("header-glass", window.scrollY <= 60) });
+
+        /* FADE */
+        const fadeObs = new IntersectionObserver(e => { e.forEach(i => { if (i.isIntersecting) { i.target.classList.add("show"); fadeObs.unobserve(i.target) } }) }, { threshold: .15 });
+        document.querySelectorAll(".fade").forEach(el => fadeObs.observe(el));
+
+        /* SCROLL SPY */
+        const secs = document.querySelectorAll("section[id]");
+        const links = document.querySelectorAll(".nav-link");
+        const spy = new IntersectionObserver(e => { e.forEach(i => { if (i.isIntersecting) { links.forEach(l => l.classList.remove("nav-active")); const a = document.querySelector(`.nav-link[data-section="${i.target.id}"]`); if (a) a.classList.add("nav-active") } }) }, { threshold: .6 });
+        secs.forEach(s => spy.observe(s));
+        const carousel = document.getElementById("carousel");
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let autoSlide;
+
+        /* ===== DRAG ===== */
+        carousel.addEventListener("mousedown", e => {
+            isDown = true;
+            startX = e.pageX;
+            scrollLeft = carousel.scrollLeft;
+            stopAuto();
+        });
+
+        carousel.addEventListener("mouseup", () => {
+            isDown = false;
+            startAuto();
+        });
+
+        carousel.addEventListener("mouseleave", () => {
+            isDown = false;
+            startAuto();
+        });
+
+        carousel.addEventListener("mousemove", e => {
+            if (!isDown) return;
+            e.preventDefault();
+            const walk = (e.pageX - startX) * 1.5;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        /* ===== TOUCH ===== */
+        carousel.addEventListener("touchstart", stopAuto);
+        carousel.addEventListener("touchend", startAuto);
+
+        /* ===== BOTÕES ===== */
+        function slide(direction) {
+            stopAuto();
+            const slideAmount = carousel.clientWidth * 0.75;
+
+            carousel.scrollBy({
+                left: slideAmount * direction,
+                behavior: "smooth"
+            });
+
+            startAuto();
+        }
+
+        /* ===== AUTO SLIDE ===== */
+        function startAuto() {
+            autoSlide = setInterval(() => {
+                carousel.scrollBy({
+                    left: carousel.clientWidth * 0.5,
+                    behavior: "smooth"
+                });
+            }, 5000);
+        }
+
+        function stopAuto() {
+            clearInterval(autoSlide);
+        }
+
+        startAuto();
+        const form = document.getElementById("mc-form");
+        const successBox = document.getElementById("form-success");
+
+        form.addEventListener("submit", () => {
+            setTimeout(() => {
+                successBox.style.display = "block";
+                form.reset();
+
+                // Esconde mensagem após alguns segundos
+                setTimeout(() => {
+                    successBox.style.display = "none";
+                }, 6000);
+
+            }, 1200);
+        });
+
+    </script>
+
+</body>
+
+</html>
